@@ -1,7 +1,27 @@
+import { useState } from "react";
 import "./App.css";
 import InputBox from "./components/inputBoc";
+import CurrencyApi from "./hooks/currencyApi";
 
 function App() {
+  const [amount, setAmount] = useState(0);
+  const [from, setFrom] = useState("usd");
+  const [to, setTo] = useState("pkr");
+  const [convertedAmount, setconvertedAmount] = useState(0);
+  /////////////////
+  const currencyInfo = CurrencyApi(from);
+  const options = Object.keys(currencyInfo);
+
+  const swap = () => {
+    setFrom(to);
+    setTo(from);
+    setAmount(convertedAmount);
+    setconvertedAmount(amount);
+  };
+  //////////
+  const convert = () => {
+    setconvertedAmount(amount * currencyInfo[to]);
+  };
   return (
     <div
       style={{
@@ -12,7 +32,7 @@ function App() {
         height: "100vh",
       }}
     >
-      <div
+      <form
         style={{
           width: "400px",
           backgroundColor: "#4E5586",
@@ -22,13 +42,23 @@ function App() {
           justifyContent: "center",
           alignItems: "center",
           borderRadius: "10px",
-          // color: "white",
           gap: "15px",
           textTransform: "capitalize",
           position: "relative",
         }}
+        onSubmit={(e) => {
+          e.preventDefault();
+          convert();
+        }}
       >
-        <InputBox from="from" />
+        <InputBox
+          label="from"
+          amount={amount}
+          currencyOptions={options}
+          onCurrencyChange={(currency) => setAmount(amount)}
+          selectCurrency={from}
+          onAmountChange={(amount) => setAmount(amount)}
+        />
 
         <button
           style={{
@@ -41,12 +71,21 @@ function App() {
             top: "40%",
             left: "45%",
           }}
+          onClick={swap}
         >
           Swap
         </button>
 
-        <InputBox from="To" />
+        <InputBox
+          label="To"
+          amount={convertedAmount}
+          currencyOptions={options}
+          onCurrencyChange={(currency) => setTo(currency)}
+          selectCurrency={from}
+          amountDisabled
+        />
         <button
+          type="submit"
           style={{
             backgroundColor: "#215DEA",
             border: "none",
@@ -56,9 +95,9 @@ function App() {
             borderRadius: "5px",
           }}
         >
-          Convert
+          Convert {from.toUpperCase()} to {to.toUpperCase()}
         </button>
-      </div>
+      </form>
     </div>
   );
 }

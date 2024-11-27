@@ -1,16 +1,53 @@
-import React from "react";
+import React, { useId } from "react";
 
-const InputBox = ({ from }) => {
+const InputBox = ({
+  label,
+  amount,
+  onAmountChange,
+  onCurrencyChange,
+  currencyOptions = [],
+  selectCurrency = "usd",
+  amountDisabled = false,
+  currencyDisabled = false,
+}) => {
+  const id = useId();
+
   return (
     <div style={styles.divOne}>
       <div style={styles.innerDivOne}>
-        <label style={styles.label}>{from}</label>
-        <label style={styles.label}>Currency Type</label>
+        <label htmlFor={id} style={styles.label}>
+          {label}
+        </label>
+        <label htmlFor={id} style={styles.label}>
+          Currency Type
+        </label>
       </div>
       <div style={styles.innerDivTwo}>
-        <input style={styles.input} value="" type="number" placeholder="0" />
-        <select name="" id="" value="usd">
-          <option value="usd">usd</option>
+        <input
+          id={id}
+          style={styles.input}
+          value={amount}
+          type="number"
+          placeholder="0"
+          disabled={amountDisabled}
+          onChange={(e) =>
+            onAmountChange && onAmountChange(Number(e.target.value))
+          }
+        />
+        <select
+          name=""
+          id=""
+          value={selectCurrency}
+          onChange={(e) => onCurrencyChange && onCurrencyChange(e.target.value)}
+          disabled={currencyDisabled}
+        >
+          {currencyOptions.map((currency) => {
+            return (
+              <option key={currency} value={currency}>
+                {currency}
+              </option>
+            );
+          })}
         </select>
       </div>
     </div>
