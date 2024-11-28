@@ -5,8 +5,8 @@ import CurrencyApi from "./hooks/currencyApi";
 
 function App() {
   const [amount, setAmount] = useState(0);
-  const [from, setFrom] = useState("usd");
-  const [to, setTo] = useState("pkr");
+  const [from, setFrom] = useState("pkr");
+  const [to, setTo] = useState("usd");
   const [convertedAmount, setconvertedAmount] = useState(0);
   /////////////////
 
@@ -23,6 +23,7 @@ function App() {
   const convert = () => {
     setconvertedAmount(amount * currencyInfo[to]);
   };
+  console.log(currencyInfo[to], "this is from inner to info");
   console.log(
     "from=",
     from,
@@ -97,7 +98,7 @@ function App() {
           amount={convertedAmount}
           currencyOptions={options}
           onCurrencyChange={(currency) => setTo(currency)}
-          selectCurrency={from}
+          selectCurrency={to}
           amountDisabled
         />
         <button
