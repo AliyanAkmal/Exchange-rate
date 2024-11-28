@@ -9,6 +9,7 @@ function App() {
   const [to, setTo] = useState("pkr");
   const [convertedAmount, setconvertedAmount] = useState(0);
   /////////////////
+
   const currencyInfo = CurrencyApi(from);
   const options = Object.keys(currencyInfo);
 
@@ -18,10 +19,25 @@ function App() {
     setAmount(convertedAmount);
     setconvertedAmount(amount);
   };
-  //////////
+  //////////Still not understanding the concept of this component need to understand deeply/////
   const convert = () => {
     setconvertedAmount(amount * currencyInfo[to]);
   };
+  console.log(
+    "from=",
+    from,
+    "to=",
+    to,
+    " amount=",
+    amount,
+    "convertedAmount=",
+    convertedAmount,
+    "currencyInfo=",
+    currencyInfo,
+    "options=",
+    options
+  );
+
   return (
     <div
       style={{
@@ -95,7 +111,7 @@ function App() {
             borderRadius: "5px",
           }}
         >
-          Convert {from.toUpperCase()} to {to.toUpperCase()}
+          {/* Convert {from.toUpperCase()} to {to.toUpperCase()} */}
         </button>
       </form>
     </div>

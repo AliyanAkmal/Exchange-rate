@@ -8,7 +8,7 @@ function CurrencyApi(currency) {
     )
       .then((res) => res.json())
       .then((res) => setData(res[currency]));
-  }, [currency, data]);
+  }, [currency]);
   return data;
 }
 export default CurrencyApi;
