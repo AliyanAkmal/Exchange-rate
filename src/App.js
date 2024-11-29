@@ -13,32 +13,18 @@ function App() {
   const currencyInfo = CurrencyApi(from);
   const options = Object.keys(currencyInfo);
 
-  const swap = () => {
-    setFrom(to);
-    setTo(from);
-    setAmount(convertedAmount);
-    setconvertedAmount(amount);
-  };
   //////////Still not understanding the concept of this component need to understand deeply/////
   const convert = () => {
     setconvertedAmount(amount * currencyInfo[to]);
   };
-  console.log(currencyInfo[to], "this is from inner to info");
-  console.log(
-    "from=",
-    from,
-    "to=",
-    to,
-    " amount=",
-    amount,
-    "convertedAmount=",
-    convertedAmount,
-    "currencyInfo=",
-    currencyInfo,
-    "options=",
-    options
-  );
+  ////////swap//////////////
+  const swap = () => {
+    setFrom(to);
+    setTo(from);
 
+    setAmount(convertedAmount);
+    setconvertedAmount(amount);
+  };
   return (
     <div
       style={{
@@ -72,7 +58,7 @@ function App() {
           label="from"
           amount={amount}
           currencyOptions={options}
-          onCurrencyChange={(currency) => setAmount(amount)}
+          onCurrencyChange={(currency) => setFrom(currency)}
           selectCurrency={from}
           onAmountChange={(amount) => setAmount(amount)}
         />
@@ -99,6 +85,7 @@ function App() {
           currencyOptions={options}
           onCurrencyChange={(currency) => setTo(currency)}
           selectCurrency={to}
+          // onAmountChange={(amount) => setconvertedAmount(amount)}
           amountDisabled
         />
         <button

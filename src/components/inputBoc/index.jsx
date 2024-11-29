@@ -29,7 +29,7 @@ const InputBox = ({
           value={amount}
           type="number"
           placeholder="0"
-          disabled={amountDisabled}
+          // disabled={amountDisabled}
           onChange={(e) =>
             onAmountChange && onAmountChange(Number(e.target.value))
           }
