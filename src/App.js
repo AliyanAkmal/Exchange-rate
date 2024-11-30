@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import InputBox from "./components/inputBoc";
 import CurrencyApi from "./hooks/currencyApi";
@@ -8,6 +8,7 @@ function App() {
   const [from, setFrom] = useState("pkr");
   const [to, setTo] = useState("usd");
   const [convertedAmount, setconvertedAmount] = useState(0);
+  // const [hold, setHold] = useState(0);
   /////////////////
 
   const currencyInfo = CurrencyApi(from);
@@ -18,13 +19,16 @@ function App() {
     setconvertedAmount(amount * currencyInfo[to]);
   };
   ////////swap//////////////
+
   const swap = () => {
     setFrom(to);
     setTo(from);
-
+    // setHold(amount);
     setAmount(convertedAmount);
     setconvertedAmount(amount);
+    console.log(amount, convertedAmount);
   };
+  /////////////
   return (
     <div
       style={{
@@ -85,8 +89,10 @@ function App() {
           currencyOptions={options}
           onCurrencyChange={(currency) => setTo(currency)}
           selectCurrency={to}
-          // onAmountChange={(amount) => setconvertedAmount(amount)}
-          amountDisabled
+          onAmountChange={(convertedAmount) =>
+            setconvertedAmount(convertedAmount)
+          }
+          // amountDisabled
         />
         <button
           type="submit"
@@ -99,7 +105,7 @@ function App() {
             borderRadius: "5px",
           }}
         >
-          {/* Convert {from.toUpperCase()} to {to.toUpperCase()} */}
+          Convert {from.toUpperCase()} to {to.toUpperCase()}
         </button>
       </form>
     </div>
