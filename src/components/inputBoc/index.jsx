@@ -37,6 +37,7 @@ const InputBox = ({
         <select
           name=""
           id=""
+          style={styles.select}
           value={selectCurrency}
           onChange={(e) => onCurrencyChange && onCurrencyChange(e.target.value)}
           disabled={currencyDisabled}
@@ -81,5 +82,12 @@ const styles = {
     padding: "10px",
     borderRadius: "10px",
     fontSize: "18px",
+  },
+  select: {
+    width: "63px",
+    border: "2px solid #215DEA",
+    outline: "none",
+    color: "#215DEA",
+    borderRadius: "5px",
   },
 };

@@ -4,11 +4,11 @@ import InputBox from "./components/inputBoc";
 import CurrencyApi from "./hooks/currencyApi";
 
 function App() {
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState();
   const [from, setFrom] = useState("pkr");
   const [to, setTo] = useState("usd");
-  const [convertedAmount, setconvertedAmount] = useState(0);
-  // const [hold, setHold] = useState(0);
+  const [convertedAmount, setconvertedAmount] = useState();
+
   /////////////////
 
   const currencyInfo = CurrencyApi(from);
@@ -23,9 +23,8 @@ function App() {
   const swap = () => {
     setFrom(to);
     setTo(from);
-    // setHold(amount);
-    setAmount(convertedAmount);
     setconvertedAmount(amount);
+    setTimeout(() => setAmount(convertedAmount), 10);
     console.log(amount, convertedAmount);
   };
   /////////////
@@ -52,6 +51,8 @@ function App() {
           gap: "15px",
           textTransform: "capitalize",
           position: "relative",
+          color: "#215DEA",
+          fontWeight: "600",
         }}
         onSubmit={(e) => {
           e.preventDefault();
@@ -89,10 +90,7 @@ function App() {
           currencyOptions={options}
           onCurrencyChange={(currency) => setTo(currency)}
           selectCurrency={to}
-          onAmountChange={(convertedAmount) =>
-            setconvertedAmount(convertedAmount)
-          }
-          // amountDisabled
+          amountDisabled
         />
         <button
           type="submit"
